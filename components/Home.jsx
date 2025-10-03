@@ -8,8 +8,10 @@ import { useRef, useEffect } from "react";
 gsap.registerPlugin(useGSAP, ScrollTrigger, SplitText);
 
 export default function Home() {
+
   const refhero = useRef(null);
   const refText = useRef(null);
+
 
   useGSAP(() => {
     if (!refText.current) return;
@@ -35,7 +37,7 @@ export default function Home() {
   }, []);
 
   return (
-    <div ref={refhero} className="bg-white flex items-center justify-center p-6 min-h-[70vh]">
+    <div id="home" ref={refhero} className="bg-white flex items-center justify-center p-6 min-h-[70vh]">
       <p
         ref={refText}
         className="text-black text-2xl max-w-2xl  md:text-left leading-relaxed"

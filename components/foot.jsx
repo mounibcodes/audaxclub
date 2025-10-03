@@ -1,19 +1,22 @@
 import React from 'react'
 import Image from 'next/image'
 import Link from 'next/link';
-import { FaInstagram, FaLinkedin, FaFacebook, FaTiktok } from "react-icons/fa";
-import { FaXTwitter } from "react-icons/fa6"; // For the new X/Twitter logo
+import { FaInstagram, FaLinkedin, FaFacebook, FaTiktok, Famail } from "react-icons/fa";
+import { MdEmail } from "react-icons/md";
+
+import PrivacyPolicyAudax from '@/app/privacayplolicy/page';
 
 export default function Foot() {
   const footerLinks = [
-    { title: "About us", href: "/about" },
-    { title: "Contact us", href: "/contact" },
-    { title: "Privacy Policy", href: "/privacy-policy" },
+    { title: "About us", href: "https://ensta.edu.dz/category/activites-culturelles-sportives-et-scientifiques/clubs-culturels-fr/audax-club-fr-fr/" },
+    { title: "Contact us", href: "/" },
+    { title: "Privacy Policy", href: "/privacayplolicy" },
   ];
   const icons = [
     { icon: <FaInstagram />, href: "https://www.instagram.com/audax.ensta/" },
     { icon: <FaTiktok />, href: "https://www.tiktok.com/@audax.ensta" },
-    { icon: <FaFacebook />, href: "https://web.facebook.com/profile.php?id=100080218060469&_rdc=1&_rdr" }
+    { icon: <FaFacebook />, href: "https://web.facebook.com/profile.php?id=100080218060469&_rdc=1&_rdr" },
+    { icon: <MdEmail />, href: "mailto:audax@ensta.edu.dz" }
   ];
 
   return (

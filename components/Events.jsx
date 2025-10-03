@@ -5,27 +5,33 @@ export default function Events() {
     // Past events (already done)
     const events = [
         {
+            title: "World Tour",
+            date: "February 2025",
+            description: "A symbolic journey across Turkey, Mexico, Japan, China, Palestine, Brazil, Italy, and Russia, celebrating diversity, culture, and unique experiences.",
+            image: "/audax/img5.jpg",
+        },
+        {
             title: "Trip to Tikedja",
             date: "February 2025",
             description: "A mountain trip to enjoy nature and strengthen the bonds between members.",
-            image: "/img4.png",
+            image: "/audax/img1.jpg",
         },
 
         {
             title: "Saddle Up — Sidi Rached, Tipaza",
-            date: "13 December 2024",
+            date: "December 2024",
             description: "A memorable horse riding event organized by Audax Club in Sidi Rached, Tipaza. Members enjoyed outdoor activities, bonding, and adventure.",
-            image: "/img1.png", // save your uploaded image here
+            image: "/audax/img4.jpeg", // save your uploaded image here
         },
         {
             title: "Ramadan Iftar",
             date: "March 2024",
             description: "A moment of sharing and togetherness around an iftar organized by the club.",
-            image: "/iftar.png",
+            image: "/audax/ramadane2.webp",
         },
         {
             title: "Festidax",
-            date: "TBD", // add the actual date
+            date: "November 2024", // add the actual date
             description: "A fun-filled day with games, activities, music, and a film screening. Get ready for unforgettable moments! 💫",
             image: "/img5.png", // put the actual image in /public
         },

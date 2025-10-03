@@ -8,18 +8,22 @@ gsap.registerPlugin(ScrollTrigger);
 
 export default function Hero() {
   const gallery = [
-    { src: "/img1.png", alt: "Image 1" },
-    { src: "/img2.png", alt: "Image 2" },
-    { src: "/img3.png", alt: "Image 3" },
-    { src: "/img4.png", alt: "Image 4" },
+    { src: "/audax/img1.jpg", alt: "Image 1" },
+    { src: "/audax/img3.jpeg", alt: "Image 2" },
+    { src: "/audax/img4.jpeg", alt: "Image 3" },
+    { src: "/audax/ramadane2.webp", alt: "Image 4" },
   ];
 
   const containerRef = useRef(null);
   const imageRefs = useRef([]);
-  const titleRef = useRef(null);
+  const desktopTitleRef = useRef(null);
+  const mobileGalleryRef = useRef(null);
 
   useEffect(() => {
-    const ctx = gsap.context(() => {
+    const mm = gsap.matchMedia();
+
+    // Desktop: pin + stacked image animation + title animation
+    mm.add("(min-width: 768px)", () => {
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: containerRef.current,
@@ -31,6 +35,7 @@ export default function Hero() {
       });
 
       imageRefs.current.forEach((img, idx) => {
+        if (!img) return;
         tl.to(
           img,
           {
@@ -38,13 +43,13 @@ export default function Hero() {
             opacity: 0,
             ease: "power2.inOut",
           },
-          idx
+          idx * 0.5
         );
       });
 
-      gsap.fromTo(
-        titleRef.current,
-        { x: 200, opacity: 0 },
+      const titleAnim = gsap.fromTo(
+        desktopTitleRef.current,
+        { x: 150, opacity: 0 },
         {
           x: 0,
           opacity: 1,
@@ -52,44 +57,88 @@ export default function Hero() {
           ease: "power3.out",
           scrollTrigger: {
             trigger: containerRef.current,
-            start: "top center",
-            toggleActions: "play none none reverse",
+            start: "top 60%",
             scrub: true,
           },
         }
       );
-    }, containerRef);
 
-    return () => ctx.revert();
+      return () => {
+        if (tl.scrollTrigger) tl.scrollTrigger.kill();
+        tl.kill();
+        titleAnim.kill();
+      };
+    });
+
+    // Mobile: horizontal scroll with vertical scroll trigger
+    mm.add("(max-width: 767px)", () => {
+      const panels = gsap.utils.toArray(
+        "#mobile-gallery .mobile-panel"
+      );
+      if (panels.length === 0) return;
+
+      gsap.to(panels, {
+        xPercent: -100 * (panels.length - 1),
+        ease: "none",
+        scrollTrigger: {
+          trigger: mobileGalleryRef.current,
+          pin: true,
+          scrub: 1,
+          snap: 1 / (panels.length - 1),
+          end: () => "+=" + mobileGalleryRef.current.offsetWidth,
+        },
+      });
+
+      return () => ScrollTrigger.getAll().forEach((t) => t.kill());
+    });
+
+    return () => mm.revert();
   }, []);
 
   return (
     <div
       id="hero"
       ref={containerRef}
-      className="bg-striped flex items-center justify-start h-screen w-full mt-10 rounded-2xl relative overflow-hidden"
+      className="bg-striped h-screen w-full mt-10 rounded-2xl relative overflow-hidden"
     >
-      {/* Title */}
+      {/* Desktop Title */}
       <h1
-        ref={titleRef}
-        className="hidden md:block absolute top-1/2 right-10 md:right-20 lg:right-40 -translate-y-1/2 text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-black leading-tight text-black max-w-xs sm:max-w-sm md:max-w-md"
+        ref={desktopTitleRef}
+        className="hidden md:block absolute top-1/2 right-16 lg:right-36 -translate-y-1/2 
+                   text-4xl md:text-5xl lg:text-7xl font-black leading-tight text-black max-w-lg"
       >
         AUDAX IS NOT JUST A CLUB. <br /> IT&apos;S A FAMILY.
       </h1>
 
-      <h1
-        ref={titleRef}
-        className="md:hidden text-center relative top-[-75] left-[65] -translate-y-1/2 text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-black leading-tight text-black max-w-xs sm:max-w-sm md:max-w-md"
+      {/* Mobile: horizontal scroll */}
+      <div
+        ref={mobileGalleryRef}
+        id="mobile-gallery"
+        className="md:hidden flex flex-col items-center justify-center h-full px-4"
       >
-        AUDAX IS NOT JUST A CLUB. <br /> IT&apos;S A FAMILY.
-      </h1>
+        <div className="flex gap-4 py-6">
+          {gallery.map((img, idx) => (
+            <div
+              key={idx}
+              className="mobile-panel relative flex-shrink-0 w-64 h-64 rounded-2xl overflow-hidden"
+            >
+              <Image src={img.src} alt={img.alt} fill className="object-cover" />
+            </div>
+          ))}
+        </div>
 
-      {/* Images stacked on the left */}
+        <h1 className="text-3xl sm:text-4xl font-black text-center text-black leading-snug mt-6 px-2">
+          AUDAX IS NOT JUST A CLUB. <br /> IT&apos;S A FAMILY.
+        </h1>
+      </div>
+
+      {/* Desktop stacked images */}
       {gallery.map((img, idx) => (
         <div
           key={idx}
           ref={(el) => (imageRefs.current[idx] = el)}
-          className="absolute top-1/2 left-4 sm:left-10 md:left-20 -translate-y-1/2 w-40 sm:w-60 md:w-80 lg:w-[400px] h-40 sm:h-60 md:h-80 lg:h-[400px]"
+          className="hidden md:block absolute top-1/2 left-10 md:left-20 
+                     -translate-y-1/2 w-60 md:w-80 lg:w-[400px] h-60 md:h-80 lg:h-[400px]"
           style={{ zIndex: gallery.length - idx }}
         >
           <Image
@@ -97,7 +146,6 @@ export default function Hero() {
             alt={img.alt}
             fill
             className="rounded-xl object-cover shadow-2xl"
-            sizes="(max-width: 640px) 40vw, (max-width: 768px) 50vw, 400px"
           />
         </div>
       ))}

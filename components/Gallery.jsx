@@ -5,13 +5,20 @@ import { gsap } from "gsap";
 
 export default function Gallery() {
   const images = [
-    { src: "/img1.png", alt: "Trip to Tikedja" },
-    { src: "/img2.png", alt: "Ramadan Iftar" },
-    { src: "/img3.png", alt: "Music Event" },
-    { src: "/img4.png", alt: "Creative Workshop" },
-    { src: "/img5.png", alt: "Club Members" },
-    { src: "/img4.png", alt: "Outdoor Activity" },
-  ];
+  { src: "/audax/audax.jpg", alt: "Audax Project" },
+  { src: "/audax/chess.jpg", alt: "Chess Game" },
+  { src: "/audax/img1.jpg", alt: "First Image" },
+  { src: "/audax/img2.jpg", alt: "Second Image" },
+  { src: "/audax/img3.jpeg", alt: "Third Image" },
+  { src: "/audax/img4.jpeg", alt: "Fourth Image" },
+  { src: "/audax/img5.jpg", alt: "Fifth Image" },
+  { src: "/audax/ramadane.webp", alt: "Ramadan Video" },
+  { src: "/audax/ramadane2.webp", alt: "Ramadan Second Video" },
+  { src: "/audax/ramia.jpg", alt: "Ramia Event" },
+  { src: "/img3.png", alt: "Music Event" },
+  { src: "/img5.png", alt: "Club Members" }
+];
+
 
   const rowRefs = [useRef(null), useRef(null), useRef(null)];
 
