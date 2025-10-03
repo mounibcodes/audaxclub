@@ -1,8 +1,8 @@
 "use client";
 import React, { useEffect, useRef } from "react";
 import Image from "next/image";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+import gsap from "gsap";
+import ScrollTrigger from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -17,12 +17,16 @@ export default function Hero() {
   const containerRef = useRef(null);
   const imageRefs = useRef([]);
   const desktopTitleRef = useRef(null);
-  const mobileGalleryRef = useRef(null);
+
+  // mobile refs
+  const mobileWrapperRef = useRef(null); // wrapper that will be pinned
+  const panelsRef = useRef(null); // inner panels container (wide)
+  const mobileTitleRef = useRef(null);
 
   useEffect(() => {
     const mm = gsap.matchMedia();
 
-    // Desktop: pin + stacked image animation + title animation
+    // Desktop animations (unchanged)
     mm.add("(min-width: 768px)", () => {
       const tl = gsap.timeline({
         scrollTrigger: {
@@ -31,6 +35,7 @@ export default function Hero() {
           end: "+=400%",
           scrub: true,
           pin: true,
+          invalidateOnRefresh: true,
         },
       });
 
@@ -59,6 +64,7 @@ export default function Hero() {
             trigger: containerRef.current,
             start: "top 60%",
             scrub: true,
+            invalidateOnRefresh: true,
           },
         }
       );
@@ -66,30 +72,63 @@ export default function Hero() {
       return () => {
         if (tl.scrollTrigger) tl.scrollTrigger.kill();
         tl.kill();
-        titleAnim.kill();
+        titleAnim.kill && titleAnim.kill();
       };
     });
 
-    // Mobile: horizontal scroll with vertical scroll trigger
+    // Mobile: pinned horizontal scroll + title scale in/out
     mm.add("(max-width: 767px)", () => {
-      const panels = gsap.utils.toArray(
-        "#mobile-gallery .mobile-panel"
-      );
-      if (panels.length === 0) return;
+      const wrapper = mobileWrapperRef.current;
+      const panelsNode = panelsRef.current;
+      if (!wrapper || !panelsNode) return;
 
-      gsap.to(panels, {
-        xPercent: -100 * (panels.length - 1),
-        ease: "none",
+      const panels = gsap.utils.toArray(".mobile-panel", panelsNode);
+      if (!panels.length) return;
+
+      // total horizontal scroll distance (how many px the page should move)
+      const totalScroll = panelsNode.scrollWidth - window.innerWidth;
+      if (totalScroll <= 0) return;
+
+      // timeline mapped to vertical scroll (pinning the wrapper)
+      const tl = gsap.timeline({
         scrollTrigger: {
-          trigger: mobileGalleryRef.current,
-          pin: true,
+          trigger: wrapper,
+          start: "top top",
+          end: () => "+=" + totalScroll,
           scrub: 1,
-          snap: 1 / (panels.length - 1),
-          end: () => "+=" + mobileGalleryRef.current.offsetWidth,
+          pin: true,
+          invalidateOnRefresh: true,
+          // markers: true, // <-- uncomment this line to debug start/end positions
         },
       });
 
-      return () => ScrollTrigger.getAll().forEach((t) => t.kill());
+      // panels move horizontally across the whole timeline
+      // give duration 1 so timeline length is at least 1 (positions below use 0, 0.75 etc.)
+      tl.to(
+        panels,
+        { xPercent: -100 * (panels.length - 1), ease: "none", duration: 1 },
+        0
+      );
+
+      // title: scale/fade in at the very start of the timeline
+      tl.fromTo(
+        mobileTitleRef.current,
+        { scale: 0.85, opacity: 0, y: 8 },
+        { scale: 1, opacity: 1, y: 0, duration: 0.2, ease: "power2.out" },
+        0
+      );
+
+      // title: shrink + fade out near the end (positioned at 75% of the timeline)
+      tl.to(
+        mobileTitleRef.current,
+        { scale: 0.7, opacity: 0, y: 40, duration: 0.2, ease: "power2.inOut" },
+        0.75
+      );
+
+      return () => {
+        if (tl.scrollTrigger) tl.scrollTrigger.kill();
+        tl.kill();
+      };
     });
 
     return () => mm.revert();
@@ -110,13 +149,18 @@ export default function Hero() {
         AUDAX IS NOT JUST A CLUB. <br /> IT&apos;S A FAMILY.
       </h1>
 
-      {/* Mobile: horizontal scroll */}
+      {/* Mobile: wrapper that will be pinned while horizontal scroll runs */}
       <div
-        ref={mobileGalleryRef}
+        ref={mobileWrapperRef}
         id="mobile-gallery"
         className="md:hidden flex flex-col items-center justify-center h-full px-4"
       >
-        <div className="flex gap-4 py-6">
+        {/* panels wrapper — make sure this is the wide element */}
+        <div
+          ref={panelsRef}
+          className="panels flex gap-4 py-6"
+          style={{ width: "max-content" }} // ensures scrollWidth is panels total width
+        >
           {gallery.map((img, idx) => (
             <div
               key={idx}
@@ -127,7 +171,11 @@ export default function Hero() {
           ))}
         </div>
 
-        <h1 className="text-3xl sm:text-4xl font-black text-center text-black leading-snug mt-6 px-2">
+        <h1
+          ref={mobileTitleRef}
+          id="mobile-title"
+          className="text-3xl sm:text-4xl font-black text-center text-black leading-snug mt-6 px-2"
+        >
           AUDAX IS NOT JUST A CLUB. <br /> IT&apos;S A FAMILY.
         </h1>
       </div>
