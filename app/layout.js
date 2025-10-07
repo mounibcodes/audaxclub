@@ -2,7 +2,7 @@ import { Geist, Geist_Mono, Work_Sans } from "next/font/google";
 import "./globals.css";
 import Foot from "@/components/foot";
 import Nav from "@/components/Nav";
-import { metadata } from "framer-motion/client";
+import { metadata } from "@/app/metadata";
 
 
 export const workSans = Work_Sans({
