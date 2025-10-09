@@ -38,7 +38,7 @@ export default function Events() {
     ];
 
     return (
-        <section id="events" className="bg-striped w-full min-h-screen bg-white py-16 px-6 md:px-12">
+        <section id="events" className="bg-striped w-full min-h-screen bg-white py-16 px-6 md:px-12 ">
             <div className="max-w-7xl mx-auto text-center mb-12">
                 <h2 className="text-4xl md:text-5xl font-bold mb-4">Our Past Events</h2>
                 <p className="text-lg text-gray-600">
@@ -50,7 +50,7 @@ export default function Events() {
                 {events.map((event, idx) => (
                     <div
                         key={idx}
-                        className="bg-gray-50 border-4 rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300"
+                        className="bg-gray-50 z-9 border-4 rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300"
                     >
                         <div className="relative w-full h-56">
                             <Image
