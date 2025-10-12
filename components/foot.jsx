@@ -92,9 +92,9 @@ export default function Foot() {
         <ul className="flex flex-row gap-6 p-16 text-2xl">
           {footerLinks.map((e) => (
             <li key={e.title}>
-              <Link href={e.href} className="hover:underline">
+              <a href={e.href} target='_blank' className="hover:underline">
                 {e.title}
-              </Link>
+              </a>
             </li>
           ))}
         </ul>

@@ -135,7 +135,7 @@ export default function Hero() {
   }, []);
 
   return (
-    <div
+    <div 
       id="hero"
       ref={containerRef}
       className="bg-striped h-screen w-full mt-10 rounded-2xl relative overflow-hidden"

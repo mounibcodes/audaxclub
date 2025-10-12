@@ -1,9 +1,6 @@
 import { Geist, Geist_Mono, Work_Sans } from "next/font/google";
 import "./globals.css";
-import Foot from "@/components/foot";
-import Nav from "@/components/Nav";
-import { metadata } from "@/app/metadata";
-
+import PreloaderWrapper from "@/components/PreloaderWrapper";
 
 export const workSans = Work_Sans({
   variable: "--font-work-sans",
@@ -21,14 +18,11 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-// ✅ default layout function
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={`${workSans.className}`}>
-        <Nav />
-        {children}
-        <Foot />
+        <PreloaderWrapper>{children}</PreloaderWrapper>
       </body>
     </html>
   );
