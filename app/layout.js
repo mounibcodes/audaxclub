@@ -21,6 +21,12 @@ const geistMono = Geist_Mono({
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
+      <head>
+       
+        <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png" />
+        <title>AUDAX ENSTA -THE FIRST CLUTURAL CLUB IN ENSTA</title>
+
+      </head>
       <body className={`${workSans.className}`}>
         <PreloaderWrapper>{children}</PreloaderWrapper>
       </body>
