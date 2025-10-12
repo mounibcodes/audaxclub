@@ -1,8 +1,10 @@
 "use client";
 import Image from "next/image";
 
+// Optional: tiny blurred versions for smooth loading
+
+
 export default function Events() {
-    // Past events (already done)
     const events = [
         {
             title: "World Tour",
@@ -16,12 +18,11 @@ export default function Events() {
             description: "A mountain trip to enjoy nature and strengthen the bonds between members.",
             image: "/audax/img1.jpg",
         },
-
         {
             title: "Saddle Up — Sidi Rached, Tipaza",
             date: "December 2024",
             description: "A memorable horse riding event organized by Audax Club in Sidi Rached, Tipaza. Members enjoyed outdoor activities, bonding, and adventure.",
-            image: "/audax/img4.jpeg", // save your uploaded image here
+            image: "/audax/img4.jpeg",
         },
         {
             title: "Ramadan Iftar",
@@ -31,14 +32,14 @@ export default function Events() {
         },
         {
             title: "Festidax",
-            date: "November 2024", // add the actual date
+            date: "November 2024",
             description: "A fun-filled day with games, activities, music, and a film screening. Get ready for unforgettable moments! 💫",
-            image: "/img5.png", // put the actual image in /public
+            image: "/img5.png",
         },
     ];
 
     return (
-        <section id="events" className="bg-striped w-full min-h-screen bg-white py-16 px-6 md:px-12 ">
+        <section id="events" className="bg-striped w-full min-h-screen bg-white py-16 px-6 md:px-12">
             <div className="max-w-7xl mx-auto text-center mb-12">
                 <h2 className="text-4xl md:text-5xl font-bold mb-4">Our Past Events</h2>
                 <p className="text-lg text-gray-600">
@@ -58,6 +59,8 @@ export default function Events() {
                                 alt={event.title}
                                 fill
                                 className="object-cover"
+                                quality={75}                                  // reduces file size
+                                priority={idx < 2}                             // first 2 images load faster
                             />
                         </div>
                         <div className="p-6 text-left">

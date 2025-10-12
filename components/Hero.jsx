@@ -6,6 +6,8 @@ import ScrollTrigger from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
 
+// Optional: blurred placeholders for smoother loading
+
 export default function Hero() {
   const gallery = [
     { src: "/audax/img1.jpg", alt: "Image 1" },
@@ -18,15 +20,13 @@ export default function Hero() {
   const imageRefs = useRef([]);
   const desktopTitleRef = useRef(null);
 
-  // mobile refs
-  const mobileWrapperRef = useRef(null); // wrapper that will be pinned
-  const panelsRef = useRef(null); // inner panels container (wide)
+  const mobileWrapperRef = useRef(null);
+  const panelsRef = useRef(null);
   const mobileTitleRef = useRef(null);
 
   useEffect(() => {
     const mm = gsap.matchMedia();
 
-    // Desktop animations (unchanged)
     mm.add("(min-width: 768px)", () => {
       const tl = gsap.timeline({
         scrollTrigger: {
@@ -76,7 +76,6 @@ export default function Hero() {
       };
     });
 
-    // Mobile: pinned horizontal scroll + title scale in/out
     mm.add("(max-width: 767px)", () => {
       const wrapper = mobileWrapperRef.current;
       const panelsNode = panelsRef.current;
@@ -85,11 +84,9 @@ export default function Hero() {
       const panels = gsap.utils.toArray(".mobile-panel", panelsNode);
       if (!panels.length) return;
 
-      // total horizontal scroll distance (how many px the page should move)
       const totalScroll = panelsNode.scrollWidth - window.innerWidth;
       if (totalScroll <= 0) return;
 
-      // timeline mapped to vertical scroll (pinning the wrapper)
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: wrapper,
@@ -98,19 +95,15 @@ export default function Hero() {
           scrub: 1,
           pin: true,
           invalidateOnRefresh: true,
-          // markers: true, // <-- uncomment this line to debug start/end positions
         },
       });
 
-      // panels move horizontally across the whole timeline
-      // give duration 1 so timeline length is at least 1 (positions below use 0, 0.75 etc.)
       tl.to(
         panels,
         { xPercent: -100 * (panels.length - 1), ease: "none", duration: 1 },
         0
       );
 
-      // title: scale/fade in at the very start of the timeline
       tl.fromTo(
         mobileTitleRef.current,
         { scale: 0.85, opacity: 0, y: 8 },
@@ -118,7 +111,6 @@ export default function Hero() {
         0
       );
 
-      // title: shrink + fade out near the end (positioned at 75% of the timeline)
       tl.to(
         mobileTitleRef.current,
         { scale: 0.7, opacity: 0, y: 40, duration: 0.2, ease: "power2.inOut" },
@@ -149,24 +141,30 @@ export default function Hero() {
         AUDAX IS NOT JUST A CLUB. <br /> IT&apos;S A FAMILY.
       </h1>
 
-      {/* Mobile: wrapper that will be pinned while horizontal scroll runs */}
+      {/* Mobile: wrapper */}
       <div
         ref={mobileWrapperRef}
         id="mobile-gallery"
         className="md:hidden flex flex-col items-center justify-center h-full px-4"
       >
-        {/* panels wrapper — make sure this is the wide element */}
         <div
           ref={panelsRef}
           className="panels flex gap-4 py-6"
-          style={{ width: "max-content" }} // ensures scrollWidth is panels total width
+          style={{ width: "max-content" }}
         >
           {gallery.map((img, idx) => (
             <div
               key={idx}
               className="mobile-panel relative flex-shrink-0 w-64 h-64 rounded-2xl overflow-hidden"
             >
-              <Image src={img.src} alt={img.alt} fill className="object-cover" />
+              <Image
+                src={img.src}
+                alt={img.alt}
+                fill
+                className="object-cover"
+                quality={75}                                // reduces size
+                priority={idx === 0}                        // first image loads immediately
+              />
             </div>
           ))}
         </div>
@@ -194,6 +192,8 @@ export default function Hero() {
             alt={img.alt}
             fill
             className="rounded-xl object-cover shadow-2xl"
+            quality={75}                                   // reduces file size
+            priority={idx === 0}                           // first image loads immediately
           />
         </div>
       ))}

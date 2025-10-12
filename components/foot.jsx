@@ -1,12 +1,12 @@
 import React from 'react'
 import Image from 'next/image'
 import Link from 'next/link';
-import { FaInstagram, FaLinkedin, FaFacebook, FaTiktok, Famail } from "react-icons/fa";
+import { FaInstagram, FaLinkedin, FaFacebook, FaTiktok} from "react-icons/fa";
 import { MdEmail } from "react-icons/md";
 
-import PrivacyPolicyAudax from '@/app/privacayplolicy/page';
-
 export default function Foot() {
+const Toyear = new Date().getFullYear();
+
   const footerLinks = [
     { title: "About us", href: "https://ensta.edu.dz/category/activites-culturelles-sportives-et-scientifiques/clubs-culturels-fr/audax-club-fr-fr/" },
     { title: "Contact us", href: "/" },
@@ -115,7 +115,7 @@ export default function Foot() {
 
       <div className=" mt-6 py-4">
         <p className="text-center  text-black">
-          © 2025 AUDAX ENSTA . All rights reserved.
+          © {Toyear} AUDAX ENSTA . All rights reserved.
         </p>
       </div>
       <div className="text-center p-4 text-sm font-light">
