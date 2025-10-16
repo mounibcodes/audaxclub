@@ -1,6 +1,7 @@
 import { Geist, Geist_Mono, Work_Sans } from "next/font/google";
 import "./globals.css";
 import PreloaderWrapper from "@/components/PreloaderWrapper";
+import Script from "next/script";
 
 export const workSans = Work_Sans({
   variable: "--font-work-sans",
@@ -22,11 +23,29 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <head>
-       
-        <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png" />
-        <title>AUDAX ENSTA -THE FIRST CLUTURAL CLUB IN ENSTA</title>
+        {/* ✅ Google Analytics setup */}
+        <Script
+          async
+          src="https://www.googletagmanager.com/gtag/js?id=G-JBSN5VNZS6"
+        />
+        <Script id="google-analytics">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-JBSN5VNZS6');
+          `}
+        </Script>
 
+        <link
+          rel="icon"
+          type="image/png"
+          sizes="32x32"
+          href="/images/favicon-32x32.png"
+        />
+        <title>AUDAX ENSTA - THE FIRST CULTURAL CLUB IN ENSTA</title>
       </head>
+
       <body className={`${workSans.className}`}>
         <PreloaderWrapper>{children}</PreloaderWrapper>
       </body>
