@@ -51,7 +51,7 @@ export default function Events() {
                 {events.map((event, idx) => (
                     <div
                         key={idx}
-                        className="bg-gray-50 z-9 border-4 rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300"
+                        className="bg-gray-50 z-9 border-4 rounded-2xl shadow-white shadow-2xl overflow-hidden hover:shadow-2xl hover:shadow-black  transition-shadow duration-300"
                     >
                         <div className="relative w-full h-56">
                             <Image
@@ -64,7 +64,7 @@ export default function Events() {
                             />
                         </div>
                         <div className="p-6 text-left">
-                            <h3 className="text-2xl font-semibold mb-2">{event.title}</h3>
+                            <h3 className="text-2xl font-bold uppercase mb-2">{event.title}</h3>
                             <p className="text-sm text-gray-500 mb-4">{event.date}</p>
                             <p className="text-gray-700">{event.description}</p>
                         </div>

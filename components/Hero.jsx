@@ -155,13 +155,13 @@ export default function Hero() {
           {gallery.map((img, idx) => (
             <div
               key={idx}
-              className="mobile-panel relative flex-shrink-0 w-64 h-64 rounded-2xl overflow-hidden"
+              className="mobile-panel border-4  relative flex-shrink-0 w-64 h-64 rounded-2xl overflow-hidden"
             >
               <Image
                 src={img.src}
                 alt={img.alt}
                 fill
-                className="object-cover"
+                className="object-cover border-black "
                 quality={75}                                // reduces size
                 priority={idx === 0}                        // first image loads immediately
               />
@@ -191,7 +191,7 @@ export default function Hero() {
             src={img.src}
             alt={img.alt}
             fill
-            className="rounded-xl object-cover shadow-2xl"
+            className="rounded-xl border-4  border-black object-cover shadow-2xl  "
             quality={75}                                   // reduces file size
             priority={idx === 0}                           // first image loads immediately
           />

@@ -1,5 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
+import Image from "next/image";
 
 export default function Preloader({ onFinish }) {
   const words = ["Hello", "Salut", "مرحبا"];
@@ -22,8 +23,9 @@ export default function Preloader({ onFinish }) {
   }, [onFinish]);
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center bg-black text-white text-4xl font-bold z-[9999]">
-      <p className="animate-fade">{words[index]}</p>
+    <div className="fixed inset-0 flex items-center uppercase justify-center bg-white text-black  text-4xl font-black z-[9999]">
+      <p className="animate-pulse">{words[index]}</p> <br /><br />
+
     </div>
   );
 }

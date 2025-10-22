@@ -3,6 +3,7 @@ import "./globals.css";
 import PreloaderWrapper from "@/components/PreloaderWrapper";
 import Script from "next/script";
 
+
 export const workSans = Work_Sans({
   variable: "--font-work-sans",
   subsets: ["latin"],

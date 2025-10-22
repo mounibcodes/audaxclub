@@ -14,7 +14,7 @@ export default function Nav() {
   return (
     <nav className="hidden md:block md:sticky md:top-3 md:z-10 md:w-2/3 md:m-auto md:mt-4">
       <div className="bg-white rounded-4xl border shadow-2xl flex items-center justify-between px-6 py-3">
-        
+
         {/* Logo */}
         <div className="flex items-center">
           <Image
@@ -26,16 +26,24 @@ export default function Nav() {
           />
         </div>
 
-        {/* Nav links */}
-        <ul className="flex space-x-6">
+        <ul className="flex gap-6 items-center">
           {navLinks.map((L) => (
             <li
-              className={`${workSans.className} font-black text-black cursor-pointer`}
               key={L.title}
+              className={`${workSans.className} font-black text-black cursor-pointer whitespace-nowrap`}
+              onClick={() => handleScroll(L.id)}
             >
               {L.title}
             </li>
           ))}
+          <Link
+            href="/joinus"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="font-black text-black bg-red-300 border-b-4 border-r-4 p-2 rounded-2xl transform transition-transform duration-200 hover:scale-95 active:scale-90"
+          >
+            JOIN US!
+          </Link>
         </ul>
       </div>
     </nav>
