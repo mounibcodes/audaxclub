@@ -8,10 +8,10 @@ export default function Nav() {
     const [menuOpen, setMenuOpen] = useState(false);
 
     const navLinks = [
-        { title: "Home", id: "home", to: '/' },
-        { title: "About us", id: "hero", to: '/' },
-        { title: "Events", id: "events", to: '/' },
-        { title: "Gallery", id: "gallery", to: '/' }
+        { title: "HOME", id: "home", to: '/' },
+        { title: "ABOUT US", id: "hero", to: '/' },
+        { title: "EVENTS", id: "events", to: '/' },
+        { title: "GALLERY", id: "gallery", to: '/' }
     ];
 
     const handleScroll = (id) => {
@@ -94,7 +94,7 @@ export default function Nav() {
                         {navLinks.map((L) => (
                             <li
                                 key={L.title}
-                                className={`${workSans.className} font-black text-black cursor-pointer whitespace-nowrap`}
+                                className={`${workSans.className} font-black text-black text-center cursor-pointer whitespace-nowrap`}
                                 onClick={() => {
                                     handleScroll(L.id);
                                     setMenuOpen(false); // close menu after click

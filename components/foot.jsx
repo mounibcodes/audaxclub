@@ -36,7 +36,7 @@ const Toyear = new Date().getFullYear();
       </div>
 
       <div className=' md:hidden md:p-8'>
-        <h1 className='font-black p-4 text-2xl text-center '>Share culture, build friendships, <br />  celebrate diversity!”</h1>
+        <h1 className='font-black p-4 text-2xl text-center '>"Share culture, build friendships, <br />  celebrate diversity!”</h1>
       </div>
 
       <div className=' md:hidden md:justify-between'>
