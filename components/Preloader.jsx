@@ -1,31 +1,32 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import Image from "next/image";
+import gsap from "gsap";
+import { useGSAP } from "@gsap/react";
 
 export default function Preloader({ onFinish }) {
-  const words = ["Hello", "Salut", "مرحبا"];
-  const [index, setIndex] = useState(0);
-
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setIndex((prev) => (prev + 1) % words.length);
-    }, 500);
-
-    const done = setTimeout(() => {
-      clearInterval(timer);
-      onFinish();
-    }, 1500); // 3 seconds total
-
-    return () => {
-      clearInterval(timer);
-      clearTimeout(done);
-    };
-  }, [onFinish]);
+  useGSAP(() => {
+    gsap.fromTo(
+      ".preloader-img",
+      { scale: 1, opacity: 1 },
+      {
+        scale: 5,
+        duration: 1.8,
+        ease: "power3.in",
+        onComplete: onFinish,
+      }
+    );
+  }, []);
 
   return (
-    <div className="fixed inset-0 flex items-center uppercase justify-center bg-white text-black  text-4xl font-black z-[9999]">
-      <p className="animate-pulse">{words[index]}</p> <br /><br />
-
+    <div className="fixed inset-0 flex items-center justify-center bg-white z-[9999] overflow-hidden">
+      <Image
+        src="/generated-image.png"
+        alt="AUDAX LOGO WELCOME"
+        width={120}
+        height={120}
+        className="preloader-img"
+      />
     </div>
   );
 }

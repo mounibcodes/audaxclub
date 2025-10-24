@@ -6,8 +6,6 @@ import ScrollTrigger from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
 
-// Optional: blurred placeholders for smoother loading
-
 export default function Hero() {
   const gallery = [
     { src: "/audax/img1.jpg", alt: "Image 1" },
@@ -41,15 +39,7 @@ export default function Hero() {
 
       imageRefs.current.forEach((img, idx) => {
         if (!img) return;
-        tl.to(
-          img,
-          {
-            y: -(window.innerHeight + 400),
-            opacity: 0,
-            ease: "power2.inOut",
-          },
-          idx * 0.5
-        );
+        tl.to(img, { y: -(window.innerHeight + 400), opacity: 0, ease: "power2.inOut" }, idx * 0.5);
       });
 
       const titleAnim = gsap.fromTo(
@@ -98,11 +88,7 @@ export default function Hero() {
         },
       });
 
-      tl.to(
-        panels,
-        { xPercent: -100 * (panels.length - 1), ease: "none", duration: 1 },
-        0
-      );
+      tl.to(panels, { xPercent: -100 * (panels.length - 1), ease: "none", duration: 1 }, 0);
 
       tl.fromTo(
         mobileTitleRef.current,
@@ -127,7 +113,7 @@ export default function Hero() {
   }, []);
 
   return (
-    <div 
+    <div
       id="hero"
       ref={containerRef}
       className="bg-striped h-screen w-full mt-10 rounded-2xl relative overflow-hidden"
@@ -142,29 +128,14 @@ export default function Hero() {
       </h1>
 
       {/* Mobile: wrapper */}
-      <div
-        ref={mobileWrapperRef}
-        id="mobile-gallery"
-        className="md:hidden flex flex-col items-center justify-center h-full px-4"
-      >
-        <div
-          ref={panelsRef}
-          className="panels flex gap-4 py-6"
-          style={{ width: "max-content" }}
-        >
+      <div ref={mobileWrapperRef} id="mobile-gallery" className="md:hidden flex flex-col items-center justify-center h-full px-4">
+        <div ref={panelsRef} className="panels flex gap-4 py-6" style={{ width: "max-content" }}>
           {gallery.map((img, idx) => (
             <div
               key={idx}
-              className="mobile-panel border-4  relative flex-shrink-0 w-64 h-64 rounded-2xl overflow-hidden"
+              className="mobile-panel border-4 relative flex-shrink-0 w-64 h-64 rounded-2xl overflow-hidden"
             >
-              <Image
-                src={img.src}
-                alt={img.alt}
-                fill
-                className="object-cover border-black "
-                quality={75}                                // reduces size
-                priority={idx === 0}                        // first image loads immediately
-              />
+              <Image src={img.src} alt={img.alt} fill className="object-cover border-black" quality={75} priority={idx === 0} />
             </div>
           ))}
         </div>
@@ -183,17 +154,16 @@ export default function Hero() {
         <div
           key={idx}
           ref={(el) => (imageRefs.current[idx] = el)}
-          className="hidden md:block absolute top-1/2 left-10 md:left-20 
-                     -translate-y-1/2 w-60 md:w-80 lg:w-[400px] h-60 md:h-80 lg:h-[400px]"
+          className="hidden md:block absolute top-1/2 left-10 md:left-20 -translate-y-1/2 w-60 md:w-80 lg:w-[400px] h-60 md:h-80 lg:h-[400px]"
           style={{ zIndex: gallery.length - idx }}
         >
           <Image
             src={img.src}
             alt={img.alt}
             fill
-            className="rounded-xl border-4  border-black object-cover shadow-2xl  "
-            quality={75}                                   // reduces file size
-            priority={idx === 0}                           // first image loads immediately
+            className="rounded-xl border-4 border-black object-cover shadow-2xl"
+            quality={75}
+            priority={idx === 0}
           />
         </div>
       ))}
