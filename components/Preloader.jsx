@@ -10,7 +10,7 @@ export default function Preloader({ onFinish }) {
       ".preloader-img",
       { scale: 1, opacity: 1 },
       {
-        scale: 5,
+        scale: 4,
         duration: 1.8,
         ease: "power3.in",
         onComplete: onFinish,
