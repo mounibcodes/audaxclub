@@ -99,8 +99,8 @@ export default function Hero() {
 
       tl.to(
         mobileTitleRef.current,
-        { scale: 0.7, opacity: 0, y: 40, duration: 0.2, ease: "power2.inOut" },
-        0.75
+        { scale: 0.7, opacity: 0, y: 40, duration: 0.1, ease: "power2.inOut" },
+        0.50
       );
 
       return () => {

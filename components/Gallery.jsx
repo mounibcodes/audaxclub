@@ -7,7 +7,7 @@ import { gsap } from "gsap";
 
 export default function Gallery() {
   const images = [
-    { src: "/audax/audax.jpg", alt: "Audax Project" },
+    { src: "/audax/audax.jpg", alt: "Audaxfam" },
     { src: "/audax/chess.jpg", alt: "Chess Game" },
     { src: "/audax/img1.jpg", alt: "First Image" },
     { src: "/audax/img2.jpg", alt: "Second Image" },
