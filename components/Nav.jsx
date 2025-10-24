@@ -25,42 +25,43 @@ export default function Nav() {
         <>
             {/* Desktop Nav */}
             <nav className="hidden md:block md:sticky md:top-3 md:z-10 md:w-2/3 md:m-auto md:mt-4">
-                 <div className="bg-white rounded-4xl border-4 shadow-2xl flex items-center justify-between px-6 py-3">
-           
-                   {/* Logo */}
-                   <div className="flex items-center"> 
-                    <Link href={"/"}>
-                     <Image
-                       src="/generated-image.png"
-                       alt="Audax Logo"
-                       width={60}
-                       height={60}
-                       className="rounded-2xl"
-                     />
-                    </Link>
-                   </div>
-           
-                   <ul className="flex gap-6 items-center">
-                     {navLinks.map((L) => (
-                       <li
-                         key={L.title}
-                         className={`${workSans.className} font-black text-black cursor-pointer whitespace-nowrap`}
-                         onClick={() => handleScroll(L.id)}
-                       >
-                         {L.title}
-                       </li>
-                     ))}
-                     <Link
-                       href="/joinus"
-                       target="_blank"
-                       rel="noopener noreferrer"
-                       className="font-black text-black bg-red-300 border-b-4 border-r-4 p-2 rounded-2xl transform transition-transform duration-200 hover:scale-95 active:scale-90"
-                     >
-                       JOIN US!
-                     </Link>
-                   </ul>
-                 </div>
-               </nav>
+                <div className="bg-white rounded-4xl border-4 shadow-2xl flex items-center justify-between px-6 py-3">
+
+                    {/* Logo */}
+                    <div className="flex items-center">
+                        <Link href={"/"}>
+                            <Image
+                                src="/generated-image.png"
+                                alt="Audax Logo"
+                                width={60}
+                                height={60}
+                                className="rounded-2xl"
+                            />
+                        </Link>
+                    </div>
+
+                    <ul className="flex gap-6 items-center">
+                        {navLinks.map((L) => (
+                            <li
+                                key={L.title}
+                                className={`${workSans.className} font-black text-black cursor-pointer whitespace-nowrap`}
+                                onClick={() => handleScroll(L.id)}
+                            >
+                                {L.title}
+                            </li>
+                        ))}
+                        <a
+                            href="https://docs.google.com/forms/u/2/d/e/1FAIpQLSdZkh6CnIrArauIN0l8CyOy6rsytyB8kX8V_87WOXsKlJOTnw/viewform?usp=dialog&pli=1"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="font-black text-black bg-red-300 border-b-4 border-r-4 p-2 rounded-2xl transform transition-transform duration-200 hover:scale-95 active:scale-90"
+                        >
+                            JOIN US!
+                        </a>
+
+                    </ul>
+                </div>
+            </nav>
 
             {/* Mobile Nav */}
             <nav className="md:hidden sticky top-3 bg-white rounded-4xl z-[9999] w-fit m-auto mt-4 shadow-2xl border-3">
@@ -83,14 +84,15 @@ export default function Nav() {
                         >
                             <span className="text-3xl">&#8942;</span>
                         </button>
-                        <Link
-                            href="/joinus"
+                        <a
+                            href="https://docs.google.com/forms/u/2/d/e/1FAIpQLSdZkh6CnIrArauIN0l8CyOy6rsytyB8kX8V_87WOXsKlJOTnw/viewform?usp=dialog&pli=1"
                             target="_blank"
                             rel="noopener noreferrer"
                             className="font-black text-black bg-red-300 border-b-4 border-r-4 p-2 rounded-2xl transform transition-transform duration-200 hover:scale-95 active:scale-90"
                         >
                             JOIN US!
-                        </Link>
+                        </a>
+
                     </div>
                 </div>
                 {/* Dropdown Menu */}
