@@ -38,12 +38,6 @@ export default function RootLayout({ children }) {
           `}
         </Script>
 
-        <link
-          rel="icon"
-          type="image/png"
-          sizes="32x32"
-          href="/images/favicon-32x32.png"
-        />
         <title>AUDAX ENSTA - THE FIRST CULTURAL CLUB IN ENSTA</title>
       </head>
 
